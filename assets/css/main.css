@@ -231,6 +231,8 @@ img {
 .filter-button.active {
   font-weight: 600;
   color: var(--primary-color);
+  position: relative;
+  z-index: 100;
 }
 
 .filter-button.active::after {
