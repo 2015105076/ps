@@ -23,6 +23,33 @@
 
     <!-- 为新页面增加一些自定义样式 -->
     <style>
+        /* 固定顶部导航栏样式 */
+        .fixed-top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--body-bg-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 99;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            height: var(--header-height);
+        }
+        
+        .nav-title {
+            font-size: 1.5rem;
+            color: var(--title-color);
+            margin: 0;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
         .photo-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -157,15 +184,20 @@
     </header>
 
     <main>
-        <!-- =========== Page Header =========== -->
-        <section class="page-header">
-            <h1 class="page-header__title">尼康摄影作品</h1>
-            <p>使用尼康相机拍摄的精选作品</p>
-            <nav class="page-header__nav">
+        <!-- =========== Fixed Top Navigation =========== -->
+        <nav class="fixed-top-nav">
+            <h1 class="nav-title">尼康摄影作品</h1>
+            <div class="nav-links">
                 <a href="#landscapes" class="button button--ghost">风景摄影</a>
                 <a href="#portraits" class="button button--ghost">人像摄影</a>
                 <a href="#street" class="button button--ghost">街拍摄影</a>
-            </nav>
+            </div>
+        </nav>
+        
+        <!-- =========== Page Header =========== -->
+        <section class="page-header" style="padding-top: calc(var(--header-height) + 2rem);">
+            <h1 class="page-header__title">尼康摄影作品</h1>
+            <p>使用尼康相机拍摄的精选作品</p>
         </section>
 
         <!-- =========== Content Sections =========== -->
@@ -193,6 +225,42 @@
                     </div>
                     
                     <!-- 照片3 -->
+                    <div class="photo-card">
+                        <img src="assets/images/pics/日出01.JPG" alt="日出"> 
+                        <div class="photo-card-content">
+                            <h3>日出</h3>
+                            <p>日出</p>
+                        </div>
+                    </div>
+
+                    <!-- 照片4 -->
+                    <div class="photo-card">
+                        <img src="assets/images/pics/日出02.JPG" alt="日出"> 
+                        <div class="photo-card-content">
+                            <h3>日出</h3>
+                            <p>日出</p>
+                        </div>
+                    </div>
+
+                    <!-- 照片7 -->
+                    <div class="photo-card">
+                        <img src="assets/images/pics/日出03.JPG" alt="日出"> 
+                        <div class="photo-card-content">
+                            <h3>日出</h3>
+                            <p>日出</p>
+                        </div>
+                    </div>
+
+                    <!-- 照片7 -->
+                    <div class="photo-card">
+                        <img src="assets/images/pics/日出04.JPG" alt="日出"> 
+                        <div class="photo-card-content">
+                            <h3>日出</h3>
+                            <p>日出</p>
+                        </div>
+                    </div>
+
+                    <!-- 照片6 -->
                     <div class="photo-card">
                         <img src="assets/images/pics/浪.jpg" alt="浪拍"> 
                         <div class="photo-card-content">
