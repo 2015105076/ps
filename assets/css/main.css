@@ -204,6 +204,171 @@ img {
 
 
 /* ===============================================
+   PROJECTS SECTION - SLIDER STYLES
+   =============================================== */
+.projects__container {
+  position: relative;
+}
+
+.projects__filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.filter-button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: var(--normal-font-size);
+  position: relative;
+}
+
+.filter-button.active {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.filter-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+}
+
+/* Slider Controls */
+.slider-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 10;
+  transform: translateY(calc(-50% - 2rem));
+}
+
+.slider-btn {
+  background-color: var(--container-bg-color);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: all;
+  transition: var(--transition);
+  box-shadow: var(--box-shadow);
+  color: var(--text-color);
+}
+
+.slider-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.slider-btn--prev {
+  margin-left: -1rem;
+}
+
+.slider-btn--next {
+  margin-right: -1rem;
+}
+
+/* Projects Slider */
+.projects__slider-wrapper {
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.projects__slider {
+  display: flex;
+  gap: 2rem;
+  transition: transform 0.5s ease;
+  padding: 1rem 0;
+}
+
+.project-card {
+  flex: 0 0 300px;
+  background-color: var(--container-bg-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
+  border: 1px solid var(--border-color);
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.project-card__img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.project-card__content {
+  padding: 1.5rem;
+}
+
+.project-card__title {
+  font-size: var(--h3-font-size);
+  margin-bottom: 0.5rem;
+  color: var(--title-color);
+}
+
+.project-card__description {
+  font-size: var(--small-font-size);
+  color: var(--text-color-light);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.project-card__link {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--small-font-size);
+  font-weight: 600;
+  color: var(--primary-color);
+  transition: var(--transition);
+}
+
+.project-card__link:hover {
+  transform: translateX(5px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .slider-btn--prev {
+    margin-left: 0.5rem;
+  }
+  
+  .slider-btn--next {
+    margin-right: 0.5rem;
+  }
+  
+  .project-card {
+    flex: 0 0 280px;
+  }
+}
+
+/* ===============================================
    5. MODAL STYLES
    =============================================== */
 .modal {

@@ -21,6 +21,118 @@
     <!-- 主样式表 -->
     <link rel="stylesheet" href="assets/css/main.css">
     
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Projects Slider Functionality
+            const slider = document.getElementById('projectsSlider');
+            const prevBtn = document.querySelector('.slider-btn--prev');
+            const nextBtn = document.querySelector('.slider-btn--next');
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            let currentPosition = 0;
+            let autoSlideInterval;
+            const cardWidth = 300; // Card width + gap
+            const gap = 32; // 2rem in pixels
+            const slideAmount = cardWidth + gap;
+            
+            // Function to go to next slide
+            function nextSlide() {
+                const maxScroll = slider.scrollWidth - slider.parentElement.clientWidth;
+                if (currentPosition < maxScroll) {
+                    currentPosition += slideAmount;
+                    // Ensure we don't scroll past the end
+                    if (currentPosition > maxScroll) {
+                        currentPosition = maxScroll;
+                    }
+                    slider.style.transform = `translateX(-${currentPosition}px)`;
+                } else {
+                    // If at the end, go back to the start
+                    currentPosition = 0;
+                    slider.style.transform = `translateX(0)`;
+                }
+            }
+            
+            // Function to go to previous slide
+            function prevSlide() {
+                if (currentPosition > 0) {
+                    currentPosition -= slideAmount;
+                    // Ensure we don't scroll below 0
+                    if (currentPosition < 0) {
+                        currentPosition = 0;
+                    }
+                    slider.style.transform = `translateX(-${currentPosition}px)`;
+                } else {
+                    // If at the start, go to the end
+                    const maxScroll = slider.scrollWidth - slider.parentElement.clientWidth;
+                    currentPosition = maxScroll;
+                    slider.style.transform = `translateX(-${currentPosition}px)`;
+                }
+            }
+            
+            // Start auto sliding
+            function startAutoSlide() {
+                autoSlideInterval = setInterval(nextSlide, 3000); // Slide every 3 seconds
+            }
+            
+            // Stop auto sliding
+            function stopAutoSlide() {
+                clearInterval(autoSlideInterval);
+            }
+            
+            // Start auto sliding when page loads
+            startAutoSlide();
+            
+            // Add event listeners for buttons
+            prevBtn.addEventListener('click', function() {
+                stopAutoSlide();
+                prevSlide();
+                startAutoSlide(); // Restart auto slide after manual interaction
+            });
+            
+            nextBtn.addEventListener('click', function() {
+                stopAutoSlide();
+                nextSlide();
+                startAutoSlide(); // Restart auto slide after manual interaction
+            });
+            
+            // Add hover effect to pause auto sliding
+            slider.parentElement.addEventListener('mouseenter', stopAutoSlide);
+            slider.parentElement.addEventListener('mouseleave', startAutoSlide);
+            
+            // Filter functionality
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Show/hide cards based on filter
+                    projectCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // Reset position after filtering
+                    currentPosition = 0;
+                    slider.style.transform = `translateX(0)`;
+                });
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                currentPosition = 0;
+                slider.style.transform = `translateX(0)`;
+            });
+        });
+    </script>
+    
     <!-- 网站图标 -->
     <link rel="icon" href="assets/images/favicon.ico">
 </head>
@@ -48,6 +160,7 @@
                 <!-- Toggle button for mobile -->
                 <div class="nav__toggle" id="nav-toggle">
                     <i class="fas fa-bars"></i>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -60,18 +173,18 @@
                 <div class="hero__content">
                     <!-- MODIFIED: Removed the .highlight span for a clean look -->
                     <h1>你好, 我是 赵琛</h1>
-                    <p class="hero__subtitle">犹豫不决的学习中</p>
+                    <p class="hero__subtitle">好好学习，多发文章</p>
                     <p class="hero__description">If I never see you again, good morning, good afternoon and good night.</p>
                     <div class="hero__buttons">
                         <a href="#projects" class="button">查看我的项目</a>
-                        <a href="https://github.com/2015105076/ps?tab=readme-ov-file#-english-version" target="_blank" class="button button--ghost">访问 GitHub</a>
+                        <a href="https://github.com/2015105076" target="_blank" class="button button--ghost">访问 GitHub</a>
                     </div>
                 </div>
                 <div class="hero__image">
-                    <img src="assets/images/touxiang.png" alt="Zhaochen's Avatar">
+                    <img src="assets/images/头像.jpg" alt="Zhaochen's Avatar">
                 </div>
             </div>
-        </section>
+        </div>
 
         <!-- =========== About Me Section (Reconstructed) =========== -->
         <section id="about" class="about section">
@@ -79,7 +192,7 @@
             <div class="about__container container grid">
                 <!-- Left Column: Intro + Musings + Guestbook Idea -->
                 <div class="about__left">
-                    <p>我目前是<strong>上海拍戏大学</strong>生物医学工程研二牛马。</p>
+                    <p>我目前是<strong>FD-EENT联培</strong>生物医学工程研二牛马。</p>
                     <p>这个网站是我记录学习、分享想法和展示成果的地方。</p>
                     
                     <div class="musings">
@@ -100,17 +213,17 @@
                 <div class="about__right">
                     <div class="timeline">
                         <div class="timeline__item">
-                            <div class="timeline__date">2025-08-15</div>
+                            <div class="timeline__date">2025-08-18</div>
                             <div class="timeline__content">
-                                <h3>软件开发</h3>
-                                <p>发布自己做的第一款软件 "视频剪辑工具箱"。</p>
+                                <h3>啥也没干</h3>
+                                <p>真的是啥也没干，无所事事，you know.</p>
                             </div>
                         </div>
                         <div class="timeline__item">
                             <div class="timeline__date">2025-07-03</div>
                             <div class="timeline__content">
                                 <h3>兴趣频道</h3>
-                                <p>创建B站号，发布口袋48、抖音录播及唱歌切片。</p>
+                                <p>创建本网页，记录自己的学习、生活。。。</p>
                             </div>
                         </div>
                         <div class="timeline__item">
@@ -128,7 +241,7 @@
                             </div>
                         </div>
                         <div class="timeline__item">
-                            <div class="timeline__date">2024-05-01</div>
+                            <div class="timeline__date">2024-09-01</div>
                             <div class="timeline__content">
                                 <h3>洗心革面</h3>
                                 <p>下定决心，专注于学习和自我提升。</p>
@@ -139,8 +252,10 @@
                         <li>学习</li>
                         <li>摄影</li>
                         <li>吃喝玩乐</li>
-                        <li>上海拍戏大学</li>
+                        <li>科研</li>
                     </ul>
+                    </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -156,44 +271,53 @@
                     <button class="filter-button" data-filter="notes">学习笔记</button>
                 </div>
 
-                <div class="projects__grid grid">
-                    <!-- Project Item 1: Project -->
-                    <div class="project-card" data-category="project">
-                        <img src="assets/images/project_toolkit.png" alt="视频剪辑工具箱" class="project-card__img">
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">视频剪辑工具箱</h3>
-                            <p class="project-card__description">一个集成了语音转文本，批量转码，无损切片，横竖屏字幕视频制作，口袋48录播chatbox弹幕视频制作，导出静帧，视频音频批量合并，视频换背景图,多功能于一体的工具</p>
-                            <a href="https://github.com/Albert-Chen04/Video-Editing-Toolkit" target="_blank" class="project-card__link">查看详情 &rarr;</a>
-                        </div>
-                    </div>
+                <!-- Slider Controls -->
+                <div class="slider-controls">
+                    <button class="slider-btn slider-btn--prev" aria-label="Previous projects"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn slider-btn--next" aria-label="Next projects"><i class="fas fa-chevron-right"></i></button>
+                </div>
 
-                    <!-- Project Item 2: Project -->
-                    <div class="project-card" data-category="project">
-                        <img src="assets/images/screenshot.png" alt="个人网站" class="project-card__img">
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">个人网站</h3>
-                            <p class="project-card__description">个人网站，静态网站</p>
-                            <a href="https://github.com/Albert-Chen04/Personal-website" target="_blank" class="project-card__link">查看详情 &rarr;</a>
+                <!-- Projects Slider -->
+                <div class="projects__slider-wrapper">
+                    <div class="projects__slider" id="projectsSlider">
+                        <!-- Project Item 1: Project -->
+                        <div class="project-card" data-category="project">
+                            <img src="assets/images/project_toolkit.png" alt="科研" class="project-card__img">
+                            <div class="project-card__content">
+                                <h3 class="project-card__title">科研</h3>
+                                <p class="project-card__description">正在进行的科研项目，包括但不限于：生物医学工程，数学分析等。</p>
+                                <a href="https://github.com" target="_blank" class="project-card__link">查看详情 &rarr;</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Project Item 2: Notes -->
-                    <div class="project-card" data-category="notes">
-                        <img src="assets/images/project_pde.jpg" alt="偏微分方程讲义" class="project-card__img">
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">偏微分方程傻瓜式讲义</h3>
-                            <p class="project-card__description">偏微分傻瓜式讲义，作业，习题卷（无适定性，无椭圆型方程）</p>
-                            <a href="https://github.com/Albert-Chen04/Partial-differential-equation" target="_blank" class="project-card__link">查看详情 &rarr;</a>
+                        <!-- Project Item 2: Project -->
+                        <div class="project-card" data-category="project">
+                            <img src="assets/images/screenshot.png" alt="个人网站" class="project-card__img">
+                            <div class="project-card__content">
+                                <h3 class="project-card__title">个人网站</h3>
+                                <p class="project-card__description">个人网站，静态网站</p>
+                                <a href="https://zhaochen1029.netlify.app/" target="_blank" class="project-card__link">查看详情 &rarr;</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- NEW Project Item 3: Notes -->
-                    <div class="project-card" data-category="notes">
-                        <img src="assets/images/project_fourier.jpg" alt="傅里叶分析学习笔记" class="project-card__img">
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">傅里叶分析学习笔记</h3>
-                            <p class="project-card__description">傅里叶分析学习笔记（零零碎碎）</p>
-                            <a href="https://github.com/Albert-Chen04/fourier-analysis-lecture-notes" target="_blank" class="project-card__link">查看详情 &rarr;</a>
+                        <!-- Project Item 2: Notes -->
+                        <div class="project-card" data-category="notes">
+                            <img src="assets/images/numpy-logo-300.png" alt="数据分析" class="project-card__img">
+                            <div class="project-card__content">
+                                <h3 class="project-card__title">数据分析</h3>
+                                <p class="project-card__description">数据分析学习笔记, pandas, numpy, matplotlib, seaborn, sklearn等等等等</p>
+                                <a href="https://www.runoob.com/numpy/numpy-tutorial.html" target="_blank" class="project-card__link">查看详情 &rarr;</a>
+                            </div>
+                        </div>
+
+                        <!-- NEW Project Item 3: Notes -->
+                        <div class="project-card" data-category="notes">
+                            <img src="assets/images/sql_file_icon.png" alt="数据库" class="project-card__img" style="width: 280px;height: 280px; margin: auto;" >
+                            <div class="project-card__content">
+                                <h3 class="project-card__title">数据库</h3>
+                                <p class="project-card__description">数据库学习笔记（零零碎碎）</p>
+                                <a href="https://www.4399.com/" target="_blank" class="project-card__link">查看详情 &rarr;</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -204,11 +328,11 @@
         <section id="socials" class="socials section">
             <h2 class="section__title">我的频道</h2>
             <div class="socials__container container grid">
-                <!-- <a href="bilibili-study.html"  class="social-card"> -->
-                    <!-- <i class="fab fa-bilibili social-card__icon bilibili-learning"></i>
-                    <h3 class="social-card__title">B站学习号</h3>
-                    <p class="social-card__description">分享数学与编程知识</p> -->
-                <!-- </a> -->
+                <a href="https://blog.csdn.net/m0_51612678?spm=1000.2115.3001.10640"  class="social-card"> 
+                    <i class="fab fa-bilibili social-card__icon bilibili-learning"></i>
+                    <h3 class="social-card__title">我的CSDN blog</h3>
+                    <p class="social-card__description">也是分享学习笔记的地方</p> 
+                </a>
                 <!-- <a href="bilibili-idols.html" class="social-card"> -->
                     <!-- <i class="fab fa-bilibili social-card__icon bilibili-star"></i>
                     <h3 class="social-card__title">口袋48和抖音录播B站号</h3>
@@ -250,7 +374,7 @@
                 <div class="contact__buttons">
                     <a href="aachenzhaoc@163.com" class="button"><i class="fas fa-envelope"></i> 发送邮件</a>
                     <button class="button" id="wechat-btn"><i class="fab fa-weixin"></i> 添加微信</button>
-                    <button class="button" id="qq-btn"><i class="fab fa-qq"></i> 关注抖音</button>
+                    <button class="button" id="douyin-btn"><i class="fab fa-tiktok"></i> 关注抖音</button>
                 </div>
             </div>
         </section>
