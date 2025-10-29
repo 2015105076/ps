@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>尼康摄影作品 - 赵琛的主页</title>
+    
+    <meta name="description" content="赵琛的尼康摄影作品展示，包含风景、人像等各类摄影作品。">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome (用于图标) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- 主样式表 -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <!-- 网站图标 -->
+    <link rel="icon" href="assets/images/favicon.ico">
+
+    <!-- 为新页面增加一些自定义样式 -->
+    <style>
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .photo-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .photo-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        
+        .photo-card-content {
+            padding: 1rem;
+            background: var(--container-bg-color);
+        }
+        
+        .photo-card h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--title-color);
+        }
+        
+        .photo-card p {
+            margin: 0;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+        
+        .photo-placeholder {
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-style: italic;
+            height: 250px;
+        }
+        
+        /* 图片全屏展示模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            cursor: pointer;
+        }
+        
+        .modal-content {
+            display: block;
+            margin: auto;
+            max-width: 90%;
+            max-height: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+        }
+        
+        .modal-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #f1f1f1;
+            font-size: 18px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- =========== Header / Navigation =========== -->
+    <header class="header">
+        <nav class="nav container">
+            <!-- 修改logo链接，使其能返回主页 -->
+            <a href="index.html" class="nav__logo">Zhao Chen</a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <!-- 修改导航链接，使其能正确跳转回主页的对应区域 -->
+                    <li class="nav__item"><a href="index.html#hero" class="nav__link">首页</a></li>
+                    <li class="nav__item"><a href="index.html#about" class="nav__link">关于我</a></li>
+                    <li class="nav__item"><a href="index.html#projects" class="nav__link">项目</a></li>
+                    <li class="nav__item"><a href="index.html#socials" class="nav__link">我的频道</a></li>
+                    <li class="nav__item"><a href="index.html#skills" class="nav__link">技能</a></li>
+                    <li class="nav__item"><a href="index.html#contact" class="nav__link">联系我</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav__actions">
+                <i class="fas fa-moon theme-switcher" id="theme-button"></i>
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- =========== Page Header =========== -->
+        <section class="page-header">
+            <h1 class="page-header__title">尼康摄影作品</h1>
+            <p>使用尼康相机拍摄的精选作品</p>
+            <nav class="page-header__nav">
+                <a href="#landscapes" class="button button--ghost">风景摄影</a>
+                <a href="#portraits" class="button button--ghost">人像摄影</a>
+                <a href="#street" class="button button--ghost">街拍摄影</a>
+            </nav>
+        </section>
+
+        <!-- =========== Content Sections =========== -->
+        <div class="container">
+            <!-- 风景摄影模块 -->
+            <section id="landscapes" class="section content-section">
+                <h2 class="section__title">风景摄影</h2>
+                <div class="photo-gallery">
+                    <!-- 照片1 -->
+                    <div class="photo-card">
+                        <img src="assets/images/pics/观景台.jpg" alt="观景台">
+                        <div class="photo-card-content">
+                            <h3>观景台</h3>
+                            <p>夜晚的星空风光，使用尼康相机拍摄</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 照片2 -->
+                    <div class="photo-card">
+                        <img src="assets/images/pics/海滩.jpg" alt="海滩">
+                        <div class="photo-card-content">
+                            <h3>海滩景色</h3>
+                            <p>第一次见大海</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 照片3 -->
+                    <div class="photo-card">
+                        <img src="assets/images/pics/浪.jpg" alt="浪拍"> 
+                        <div class="photo-card-content">
+                            <h3>浪花</h3>
+                            <p>黄昏时分的海岸线风光</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 人像摄影模块 -->
+            <section id="portraits" class="section content-section">
+                <h2 class="section__title">人像摄影</h2>
+                <div class="photo-gallery">
+                    <!-- 照片1 -->
+                    <div class="photo-card">
+                        <img src="assets/images/pics/我自己.jpg" alt="我自己">
+                        <div class="photo-card-content">
+                            <h3>吹着海风</h3>
+                            <p>海水咸咸的，海风凉凉的</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 照片2 -->
+                    <div class="photo-card">
+                        <img src="assets/images/pics/郭文玲.jpg" alt="人像">
+                        <div class="photo-card-content">
+                            <h3>苏州河畔</h3>
+                            <p>城市背景下的现代人像</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 街拍摄影模块 -->
+            <section id="street" class="section content-section">
+                <h2 class="section__title">街拍摄影</h2>
+                <div class="photo-gallery">
+                    <!-- 照片1 -->
+                    <div class="photo-card">
+                        <div class="photo-placeholder">
+                            街拍作品1
+                        </div>
+                        <div class="photo-card-content">
+                            <h3>都市节奏</h3>
+                            <p>捕捉城市生活的快节奏瞬间</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 照片2 -->
+                    <div class="photo-card">
+                        <div class="photo-placeholder">
+                            街拍作品2
+                        </div>
+                        <div class="photo-card-content">
+                            <h3>夜色霓虹</h3>
+                            <p>夜晚街头的霓虹灯光效果</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- =========== Footer =========== -->
+    <footer class="footer">
+        <div class="footer__container container">
+            <p>&copy; 2025 ZhaoChen. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 图片全屏展示模态框 -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-caption"></div>
+    </div>
+
+    <!-- 主脚本文件 -->
+    <script src="assets/js/main.js"></script>
+    
+    <!-- 图片全屏展示功能的JavaScript -->
+    <script>
+        // 获取模态框元素
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("modalImage");
+        var captionText = document.getElementsByClassName("modal-caption")[0];
+        var span = document.getElementsByClassName("close")[0];
+        
+        // 为所有图片添加点击事件监听器
+        var images = document.querySelectorAll(".photo-card img");
+        for (var i = 0; i < images.length; i++) {
+            images[i].onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt;
+            }
+        }
+        
+        // 点击关闭按钮关闭模态框
+        span.onclick = function() { 
+            modal.style.display = "none";
+        }
+        
+        // 点击模态框背景关闭模态框
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
