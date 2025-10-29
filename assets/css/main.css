@@ -226,13 +226,14 @@ img {
   transition: var(--transition);
   font-size: var(--normal-font-size);
   position: relative;
+  z-index: 100;
 }
 
 .filter-button.active {
   font-weight: 600;
   color: var(--primary-color);
   position: relative;
-  z-index: 100;
+  z-index: 101;
 }
 
 .filter-button.active::after {
